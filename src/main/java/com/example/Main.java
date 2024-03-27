@@ -13,11 +13,11 @@ public class Main {
         try {
             File image = new File("src/main/resources/ThaiIDCard_Mr._Sample.jpg");
             Tesseract tesseract = new Tesseract();
-            tesseract.setLanguage("eng+tha");
-            tesseract.setPageSegMode(1);
-            tesseract.setOcrEngineMode(1);
-            tesseract.setDatapath("src/main/resources/tessdata");
-            result = tesseract.doOCR(image, new Rectangle(1200, 200));
+            tesseract.setLanguage("tha+eng");
+            // tesseract.setPageSegMode(1);
+            // tesseract.setOcrEngineMode(1);
+            tesseract.setDatapath("src/main/resources/tessdata_best");
+            result = tesseract.doOCR(image);
         } catch (TesseractException e) {
             e.printStackTrace();
         }
