@@ -18,6 +18,7 @@ public class Main {
             // tesseract.setPageSegMode(1);
             // tesseract.setOcrEngineMode(1);
             tesseract.setDatapath("src/main/resources/tessdata_best");
+            // result = tesseract.doOCR(image);
             result = tesseract.doOCR(image, Arrays.asList(new Rectangle(140, 155, 360, 45)));
             System.out.println(result);
             result = tesseract.doOCR(image, Arrays.asList(new Rectangle(45, 280, 330, 48)));
