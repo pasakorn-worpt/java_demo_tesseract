@@ -40,6 +40,14 @@ public class Main {
             }
 
             System.out.println("---- Read Info ----");
+            tesseract.setLanguage("tha");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(170, 0, 400,
+                    70)));
+            System.out.println("Title th: " + result);
+            tesseract.setLanguage("eng");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(570, 0, 430,
+                    70)));
+            System.out.println("Title eng: " + result);
             tesseract.setLanguage("eng");
             result = tesseract.doOCR(image, Arrays.asList(new Rectangle(450, 70, 440,
                     50)));
@@ -69,6 +77,11 @@ public class Main {
             result = tesseract.doOCR(image, Arrays.asList(new Rectangle(105, 375, 650,
                     130)));
             System.out.println("Addrs th: " + result);
+
+            tesseract.setLanguage("tha+eng");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(535, 505, 215,
+                    115)));
+            System.out.println("Exp: " + result);
             // result = tesseract.doOCR(image, Arrays.asList(new Rectangle(45, 280, 330,
             // 48)));
             // System.out.println(result);
