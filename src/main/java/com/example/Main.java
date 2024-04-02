@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         String result = null;
         try {
-            File image = new File("src/main/resources/ThaiIDCard_Mr._Sample.jpg");
+            File image = new File("src/main/resources/image.png");
             Tesseract tesseract = new Tesseract();
             // tesseract.setLanguage("tha");
             tesseract.setLanguage("eng");
@@ -25,20 +25,56 @@ public class Main {
             // tesseract.setOcrEngineMode(1);
             tesseract.setDatapath("src/main/resources/tessdata_best");
             // result = tesseract.doOCR(image);
-            // result = tesseract.doOCR(image, Arrays.asList(new Rectangle(140, 155, 360,
-            // 45)));
-            // System.out.println(result);
-            // result = tesseract.doOCR(image, Arrays.asList(new Rectangle(45, 280, 330,
-            // 48)));
-            // System.out.println(result);
-            List<Word> words = tesseract.getWords(ImageIO.read(image), ITessAPI.TessPageIteratorLevel.RIL_WORD);
+
+            System.out.println("---- Get Position ----");
+            tesseract.setLanguage("eng");
+            List<Word> words = tesseract.getWords(ImageIO.read(image),
+                    ITessAPI.TessPageIteratorLevel.RIL_WORD);
 
             for (Word word : words) {
                 String text = word.getText();
-                Rectangle rect = word.getBoundingBox();
-                System.out.println(text + ":" + rect.x + ", " + rect.y);
+                if (text.equals("Thai") || text.equals("National") || text.equals("ID") || text.equals("Card")) {
+                    Rectangle rect = word.getBoundingBox();
+                    System.out.println(text + ":  " + rect.x + ", " + rect.y);
+                }
             }
-        } catch (Exception e) {
+
+            System.out.println("---- Read Info ----");
+            tesseract.setLanguage("eng");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(450, 70, 440,
+                    50)));
+            System.out.println("ID card: " + result);
+            tesseract.setLanguage("tha");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(245, 125, 745,
+                    75)));
+            System.out.println("Name th: " + result);
+            tesseract.setLanguage("eng");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(305, 195, 685,
+                    35)));
+            System.out.println("Name en: " + result);
+            tesseract.setLanguage("eng");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(305, 230, 685,
+                    50)));
+            System.out.println("Lastname en: " + result);
+            tesseract.setLanguage("tha");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(305, 280, 445,
+                    55)));
+            System.out.println("DoB th: " + result);
+            tesseract.setLanguage("eng");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(305, 335, 445,
+                    55)));
+            System.out.println("DoB en: " + result);
+
+            tesseract.setLanguage("tha");
+            result = tesseract.doOCR(image, Arrays.asList(new Rectangle(105, 375, 650,
+                    130)));
+            System.out.println("Addrs th: " + result);
+            // result = tesseract.doOCR(image, Arrays.asList(new Rectangle(45, 280, 330,
+            // 48)));
+            // System.out.println(result);
+        } catch (
+
+        Exception e) {
             e.printStackTrace();
         }
         // System.out.println(result);
